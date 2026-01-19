@@ -42,6 +42,7 @@ public class List {
         Node current = first;
         while (current != null){
             str = str + current.cp.toString() + " ";
+            current = current.next;
         }
         return str + ")";
     }
@@ -84,11 +85,11 @@ public class List {
             return true;
         }
         Node current = first;
-        for(int i = 1; i < index; i++){
+        while (current.next.cp.chr != chr) {
             current = current.next;
         }
         current.next = current.next.next;
-        return false;
+        return true;
     }
 
     /** Returns the CharData object at the specified index in this list. 
