@@ -24,26 +24,39 @@ public class List {
 
     /** Returns the CharData of the first element in this list. */
     public CharData getFirst() {
-        // Your code goes here
         return first.cp;
     }
 
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
-        // Your code goes here
+        Node node = new Node(new CharData(chr));
+        node.next = first;
+        this.first = node;
+        size++;
     }
     
     /** GIVE Textual representation of this list. */
     public String toString() {
-        // Your code goes here
-        return "";
+        if(first == null) return null;
+        String str = "(";
+        Node current = first;
+        while (current != null){
+            str = str + current.cp.toString() + " ";
+        }
+        return str + ")";
     }
 
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
     public int indexOf(char chr) {
-        // Your code goes here
+        Node current = first;
+        int index = 0;
+        while (current != null) {
+            if(current.cp.equals(chr)) return index;
+            index ++;
+            current = current.next;
+        }
         return -1;
     }
 
@@ -51,14 +64,30 @@ public class List {
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-        // Your code goes here
+        int index = indexOf(chr);
+        if(index == -1){
+            addFirst(chr);
+        }
+        else{
+            get(index).count++;
+        }
     }
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
     public boolean remove(char chr) {
-        // Your code goes here
+        int index = indexOf(chr);
+        if(index == -1) return false;
+        if(index == 0){
+            first = first.next;
+            return true;
+        }
+        Node current = first;
+        for(int i = 1; i < index; i++){
+            current = current.next;
+        }
+        current.next = current.next.next;
         return false;
     }
 
@@ -66,8 +95,12 @@ public class List {
      *  If the index is negative or is greater than the size of this list, 
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
-        // Your code goes here
-        return null;
+        if(index == -1 || index >= size) throw new IndexOutOfBoundsException("Index: " + index + " , Size: " + size);
+        Node current = first;
+        for(int i = 0; i < index; i++){
+            current = current.next;
+        }
+        return current.cp;
     }
 
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
