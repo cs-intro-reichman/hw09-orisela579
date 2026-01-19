@@ -37,12 +37,11 @@ public class List {
     
     /** GIVE Textual representation of this list. */
     public String toString() {
-        if(first == null) return null;
+        if(first == null) return "()";
         String str = "(";
-        Node current = first;
-        while (current != null){
-            str = str + current.cp.toString() + " ";
-            current = current.next;
+        ListIterator lst = new ListIterator(first);
+        while (lst.hasNext()) {
+            str += lst.next().toString() + " ";
         }
         return str + ")";
     }
@@ -82,6 +81,7 @@ public class List {
         if(index == -1) return false;
         if(index == 0){
             first = first.next;
+            size--;
             return true;
         }
         Node current = first;
@@ -89,6 +89,7 @@ public class List {
             current = current.next;
         }
         current.next = current.next.next;
+        size--;
         return true;
     }
 
