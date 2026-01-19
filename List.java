@@ -41,7 +41,8 @@ public class List {
         String str = "(";
         ListIterator lst = new ListIterator(first);
         while (lst.hasNext()) {
-            str += lst.next().toString() + " ";
+            str += lst.next().toString();
+            if(lst.hasNext()) str += " ";
         }
         return str + ")";
     }
